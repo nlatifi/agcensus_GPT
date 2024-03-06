@@ -1,6 +1,7 @@
 import streamlit as st
 #import openai
 from openai import AsyncOpenAI
+from openai import OpenAI
 import pandas as pd
 import requests
 import time
@@ -15,8 +16,10 @@ from datetime import datetime
 num_retries = 5
 
 #API stuff
-openai.api_key = open("/Users/jackogozaly/Desktop/Python_Directory/key.txt", "r").read().strip("\n")
-quickstats_api_key = open("/Users/jackogozaly/Desktop/Python_Directory/nass_key.txt", "r").read().strip("\n")
+client = OpenAI(
+api_key= open("/home/ec2-user/key.txt", "r").read().strip("\n"))
+
+quickstats_api_key = open("/home/ec2-user/nass_key.txt", "r").read().strip("\n")
 
 
 
@@ -125,8 +128,8 @@ def predict(model_type_chat, user_input, model):
     '''
     model_type_chat.append({"role": "user", "content": f"{user_input}"})
     
-    client = AsyncOpenAI()
-    completion = await client.chat.completions.create(
+    #client = AsyncOpenAI()
+    response = client.chat.completions.create(
         model=model,
         messages=model_type_chat,
         temperature = .2)
