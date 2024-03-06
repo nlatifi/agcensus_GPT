@@ -1,5 +1,6 @@
 import streamlit as st
-import openai
+#import openai
+from openai import AsyncOpenAI
 import pandas as pd
 import requests
 import time
@@ -124,10 +125,17 @@ def predict(model_type_chat, user_input, model):
     '''
     model_type_chat.append({"role": "user", "content": f"{user_input}"})
     
+    client = AsyncOpenAI()
+    completion = await client.chat.completions.create(
+        model=model,
+        messages=model_type_chat,
+        temperature = .2)
+    """
     response = openai.ChatCompletion.create(
         model=model,
         messages=model_type_chat,
         temperature = .2)
+        """
     
     reply_txt = response.choices[0].message.content
     
@@ -371,4 +379,5 @@ if prompt := st.chat_input("What is your question?"):
         if api_num_tries >= num_retries:
             fake_typing("I'm sorry, but I'm unable to get that data. Can you try again?")
             
+
 
