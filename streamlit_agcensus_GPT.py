@@ -291,7 +291,7 @@ if model_name == "GPT-3.5":
     model = "gpt-3.5-turbo"
 
 elif model_name == "GPT-4o":
-    model = "gpt-4o"
+    model = "gpt-4o-2024-11-20"
 
 else:
     model = "gpt-4"
