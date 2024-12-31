@@ -260,7 +260,7 @@ if 'eda_convo' not in st.session_state:
 
 # Sidebar - let user choose model, see cost, and clear history
 st.sidebar.title("Chatbot Options")
-model_name = st.sidebar.radio("Choose a model:", ("GPT-3.5", "GPT-4"))
+model_name = st.sidebar.radio("Choose a model:", ("GPT-3.5", "GPT-4", "GPT-4o"))
 counter_placeholder = st.sidebar.empty()
 counter_placeholder.write(f"Total cost of this conversation: ${st.session_state['total_cost']:.5f}")
 clear_button = st.sidebar.button("Clear Conversation", key="clear")
@@ -289,6 +289,10 @@ if clear_button:
 # Map model names to OpenAI model IDs
 if model_name == "GPT-3.5":
     model = "gpt-3.5-turbo"
+
+elif model_name == "GPT-4o":
+    model = "gpt-4o"
+
 else:
     model = "gpt-4"
 
